@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //ALUSTUS
+        // ******** ALKUTOIMENPITEET ******** //
         Scanner lukija = new Scanner(System.in);
         boolean onnistui = false;
         int lottoRiviLkm = 1;
@@ -24,7 +24,7 @@ public class Main {
         System.out.println("Selvä, pelataan" + " " + lottoRiviLkm + " " + "riviä lottoa. Lähdetään täyttämään rivit. ");
         Pelaaja pelaajanRivit = new Pelaaja(lottoRiviLkm);
 
-        //LOTTOKONEEN KÄYNNISTYS
+        // ******** LOTTOKONEEN KÄYNNISTYS ******** //
         char syotto;
         do {
             System.out.println("Laita lottokone käyntiin painamalla 'K'");

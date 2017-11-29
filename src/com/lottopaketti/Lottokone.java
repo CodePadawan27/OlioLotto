@@ -10,6 +10,7 @@ public class Lottokone {
     public ArrayList<Integer> arvottuLottorivi;
     //Random olio satunnaisia lukuja varten
     private static Random r = new Random();
+    //Arvottu lisänumero
     private int lisanumero;
 
     public Lottokone() {
