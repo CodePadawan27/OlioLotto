@@ -17,12 +17,6 @@ public class Lottokone {
 
     //Luo uuden 7-numeroisen lottorivin ja asettaa sen.
     public void ArvoNumerot() {
-        //Asetetaan arvottuLottorivi Arraylistiin HashSet listan luvut
-        arvottuLottorivi = new ArrayList<>(GeneroiLottorivi());
-    }
-
-    //Generoi lottorivi
-    public ArrayList<Integer> GeneroiLottorivi() {
         //Väliaikaiseen listan tallentamiseen tarkoitettu HashSet. Listassa ei voi olla samoja lukuja.
         HashSet<Integer> lodo = new HashSet<>();
         for (int i = 0; i < 7; ) {
@@ -31,31 +25,25 @@ public class Lottokone {
             i = lodo.size();
         }
 
-        return (new ArrayList<>(lodo));
+        //Asetetaan arvottuLottorivi Arraylistiin HashSet listan luvut
+        arvottuLottorivi = new ArrayList<>(lodo);
     }
 
     //Arpoo lisänumeron ja tulostaa sen
     public void ArvoLisaNumero() {
-        lisanumero = GeneroiLisaNumero(arvottuLottorivi);
-        System.out.println(" ja lisänumero" + " " + lisanumero);
-    }
-
-    //Generoi lisänumeron
-    public Integer GeneroiLisaNumero(ArrayList<Integer> arvottuRivi) {
         boolean loytyyko = false;
-        Integer lisaNumero = -1;
+        lisanumero = -1;
         do {
-            lisaNumero = r.nextInt(40) + 1;
-            if (!arvottuRivi.contains(lisaNumero)) {
+            lisanumero = r.nextInt(40) + 1;
+            if (!arvottuLottorivi.contains(lisanumero)) {
                 loytyyko = true;
             }
         } while (loytyyko == false);
-        return (lisaNumero);
+        System.out.println(" ja lisänumero" + " " + lisanumero);
     }
 
     //Palauttaa arvotun lisänumeron
     public int PalautaLisaNumero() {
-
         return lisanumero;
     }
 

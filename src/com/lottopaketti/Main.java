@@ -12,45 +12,30 @@ public class Main {
         // Tehdään uusi lottokone
         Lottokone lotto = new Lottokone();
 
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                // Valmistellaan todennäköisyydet
-                todennakoisyydet.GeneroiTodennakoisyysRivit();
-            }
-        };
+        // Valmistellaan todennäköisyydet
+        todennakoisyydet.GeneroiTodennakoisyysRivit();
 
         Scanner lukija = new Scanner(System.in);
         Pelaaja pelaajanRivit = null;
 
-        try {
-            // Aloita todennäköisyys rivien generointi toisessa threadissa,
-            // koska siinä kestää kauan. Näin voimme alkaa täyttämään rivejä sillä välin kun kone laskee.
-            t.start();
-
-            boolean onnistui = false;
-            int lottoRiviLkm = 1;
-            while (!onnistui) {
-                try {
-                    System.out.println("Tervetuloa pelaamaan lottoa! Kuinka monta lottoriviä haluat pelata?");
-                    lottoRiviLkm = lukija.nextInt();
-                    onnistui = true;
-                } catch (InputMismatchException ex) {
-                    System.out.println("Antamasi arvo ei ollut luku.");
-                    lukija.next();
-                }
+        boolean onnistui = false;
+        int lottoRiviLkm = 1;
+        while (!onnistui) {
+            try {
+                System.out.println("Tervetuloa pelaamaan lottoa! Kuinka monta lottoriviä haluat pelata?");
+                lottoRiviLkm = lukija.nextInt();
+                onnistui = true;
+            } catch (InputMismatchException ex) {
+                System.out.println("Antamasi arvo ei ollut luku.");
+                lukija.next();
             }
-
-            System.out.println("Selvä, pelataan" + " " + lottoRiviLkm + " " + "riviä lottoa. Lähdetään täyttämään rivit. ");
-            pelaajanRivit = new Pelaaja(lottoRiviLkm);
-
-            //Joinataan todennäköisyysrivien generointi threadiin, jotta ohjelma ei mene liian pitkälle kun generointi ei olekkaan vielä valmis.
-            System.out.println("Lasketaan todennäköisyyksiä...");
-            t.join();
-        } catch (Exception e) {
-            System.out.println("Error: Jotain meni pahasti pieleen ja ohjelma täytyy lopettaa.");
-            System.exit(1);
         }
+
+        System.out.println("Selvä, pelataan" + " " + lottoRiviLkm + " " + "riviä lottoa. Lähdetään täyttämään rivit. ");
+        pelaajanRivit = new Pelaaja(lottoRiviLkm);
+
+        //Joinataan todennäköisyysrivien generointi threadiin, jotta ohjelma ei mene liian pitkälle kun generointi ei olekkaan vielä valmis.
+        System.out.println("Lasketaan todennäköisyyksiä...");
 
         //Laske todennäköisyydet
         lotto.TarkastaTodennakoisyydet(pelaajanRivit, todennakoisyydet);

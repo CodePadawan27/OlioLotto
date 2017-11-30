@@ -23,8 +23,11 @@ public class Todennakoisyydet {
         }
         for (int i = 0; i < maara; i++) {
             ArrayList<Integer> rivi = GeneroiLottoriviJaLisanumero();
+            // Otetaan viimeinen indeksi rivistä (joka on lisänumero) talteen
             Integer lisaNumero = rivi.indexOf(7);
+            // Poistetaan lisänumero rivistä
             rivi.remove(7);
+            // Lisätään rivi ja lisänumero muistiin
             rivit.add(new AbstractMap.SimpleEntry<>(rivi, lisaNumero));
         }
     }
