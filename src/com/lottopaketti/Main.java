@@ -12,9 +12,6 @@ public class Main {
         // Tehdään uusi lottokone
         Lottokone lotto = new Lottokone();
 
-        // Valmistellaan todennäköisyydet
-        todennakoisyydet.GeneroiTodennakoisyysRivit();
-
         Scanner lukija = new Scanner(System.in);
         Pelaaja pelaajanRivit = null;
 
@@ -36,6 +33,9 @@ public class Main {
 
         //Joinataan todennäköisyysrivien generointi threadiin, jotta ohjelma ei mene liian pitkälle kun generointi ei olekkaan vielä valmis.
         System.out.println("Lasketaan todennäköisyyksiä...");
+
+        // Valmistellaan todennäköisyydet
+        todennakoisyydet.GeneroiTodennakoisyysRivit();
 
         //Laske todennäköisyydet
         lotto.TarkastaTodennakoisyydet(pelaajanRivit, todennakoisyydet);
