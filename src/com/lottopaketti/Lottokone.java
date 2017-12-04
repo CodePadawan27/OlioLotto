@@ -67,16 +67,15 @@ public class Lottokone {
 
     // Tarkistetaan tuliko voittoja
     public void TarkistaVoitot(Pelaaja pelaajanRivit){
-        Map<ArrayList<Integer>, VoittoLuokka> tulokset = new HashMap<>();
+        List<Lottorivi<VoittoLuokka>> tulokset = new ArrayList<>();
+
         for (ArrayList<Integer> lottorivi : pelaajanRivit.PalautaLottorivi()) {
-            tulokset.put(lottorivi, TarkistaLottoRivi(PalautaLottoRivi(), lottorivi, PalautaLisaNumero()));
+            tulokset.add(new Lottorivi<>(lottorivi, TarkistaLottoRivi(PalautaLottoRivi(), lottorivi, PalautaLisaNumero())));
         }
 
-        for (Map.Entry<ArrayList<Integer>, VoittoLuokka> tulos : tulokset.entrySet()) {
-            ArrayList<Integer> lottoRivi = tulos.getKey();
-            VoittoLuokka voittoLuokka = tulos.getValue();
+        for (Lottorivi<VoittoLuokka> tulos : tulokset) {
             String palkinto = "";
-            switch (voittoLuokka) {
+            switch (tulos.getValue()) {
                 case PAAVOITTO:
                     palkinto = "Tuli päävoitto!!!";
                     break;
@@ -100,7 +99,7 @@ public class Lottokone {
             }
 
             System.out.print("\nLottoriville: ");
-            TulostaLottoRivi(lottoRivi);
+            TulostaLottoRivi(tulos.getLottorivi());
             System.out.println("\n" + palkinto);
         }
     }
@@ -110,14 +109,15 @@ public class Lottokone {
         ArrayList<ArrayList<Integer>> lottoRivit = pelaajanRivit.PalautaLottorivi();
 
         //Todennäköisyys rivit
-        List<Map.Entry<ArrayList<Integer>, Integer>> todRivit = todennakoisyydet.PalautaTodennakoisyysRivit();
+        List<Lottorivi<Integer>> todRivit = todennakoisyydet.PalautaTodennakoisyysRivit();
 
-        List<Map.Entry<ArrayList<Integer>, VoittoLuokka>> tulokset = new ArrayList<>();
+        List<Lottorivi<VoittoLuokka>> tulokset = new ArrayList<>();
+
         //Käydään läpi kaikilla käyttäjän antamilla riveillä
         for (ArrayList<Integer> lottorivi : lottoRivit) {
             //Tarkistetaan käyttäjän antama rivi kaikkia todennäköisyyslaskentaan generoitua riviä vastaan
-            for (Map.Entry<ArrayList<Integer>, Integer> tulos : todRivit) {
-                tulokset.add(new AbstractMap.SimpleEntry<>(tulos.getKey(), TarkistaLottoRivi(tulos.getKey(), lottorivi, tulos.getValue())));
+            for (Lottorivi<Integer> tulos : todRivit) {
+                tulokset.add(new Lottorivi<>(tulos.getLottorivi(), TarkistaLottoRivi(tulos.getLottorivi(), lottorivi, tulos.getValue())));
             }
         }
 
@@ -130,7 +130,7 @@ public class Lottokone {
         Integer eiVoittoa = 0;
 
         // Ynnätään oikein tulokset yhteen (kaikista käyttäjän antamista riveistä)
-        for (Map.Entry<ArrayList<Integer>, VoittoLuokka> tulos : tulokset) {
+        for (Lottorivi<VoittoLuokka> tulos : tulokset) {
             switch (tulos.getValue()) {
                 case PAAVOITTO:
                     seitsemanOikein++;
@@ -213,4 +213,5 @@ public class Lottokone {
                 return VoittoLuokka.EI_VOITTOA;
         }
     }
+
 }

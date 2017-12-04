@@ -7,10 +7,10 @@ public class Todennakoisyydet {
     private static Random r = new Random();
     //Todennäköisyyslaskentaan
     private int maara;
-    private List<Map.Entry<ArrayList<Integer>,Integer>> rivit;
+    private List<Lottorivi<Integer>> rivit;
 
     public Todennakoisyydet() {
-        maara = 18643560;
+        maara = 186435;//60;
         rivit = new ArrayList<>();
     }
 
@@ -28,7 +28,7 @@ public class Todennakoisyydet {
             // Poistetaan lisänumero rivistä
             rivi.remove(7);
             // Lisätään rivi ja lisänumero muistiin
-            rivit.add(new AbstractMap.SimpleEntry<>(rivi, lisaNumero));
+            rivit.add(new Lottorivi<>(rivi, lisaNumero));
         }
     }
 
@@ -46,7 +46,7 @@ public class Todennakoisyydet {
     }
 
     //Palauttaa todennäköisyys rivit
-    public List<Map.Entry<ArrayList<Integer>,Integer>> PalautaTodennakoisyysRivit() {
+    public List<Lottorivi<Integer>> PalautaTodennakoisyysRivit() {
         return rivit;
     }
 }
