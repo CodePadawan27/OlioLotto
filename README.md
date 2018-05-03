@@ -1,2 +1,2 @@
 # OlioLotto
-This is a object-based lottomachine.
+This is a object-based lottomachine made with Java.
